@@ -1,0 +1,30 @@
+# ignore all files
+*
+
+# unignore directories
+!/srcs
+!/srcs/frontend
+!/srcs/backend
+!/srcs/nginx
+!/srcs/frontend/src
+!/srcs/backend/src
+!/srcs/nginx/config
+!/srcs/frontend/public
+!/**/assets
+
+# unignore files
+!**/.gitignore
+!**/.dockerignore
+!**/Dockerfile
+!**/Makefile
+!**/README.md
+!**/*.json
+!**/*.conf
+!**/*.sh
+!**/*.js
+!**/*.ts
+!**/*.tsx
+!**/*.html
+!**/*.css
+!**/*.svg
+
