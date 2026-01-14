@@ -16,6 +16,7 @@
 !**/.gitignore
 !**/.dockerignore
 !**/Dockerfile
+!**/docker-compose.yml
 !**/Makefile
 !**/README.md
 !**/*.json

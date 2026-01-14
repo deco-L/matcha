@@ -1,0 +1,88 @@
+services:
+  nginx:
+    build:
+      context: nginx
+      args:
+        HTTP_PROXY: ${HTTP_PROXY:-}
+        HTTPS_PROXY: ${HTTPS_PROXY:-}
+    image: nginx:matcha
+    container_name: matcha_nginx
+    restart: on-failure
+    ports:
+      - 443:443
+      - 8080:8080
+    env_file:
+      - .env
+    secrets:
+      - ssl_crt
+      - ssl_key
+    networks:
+      front:
+      back:
+    depends_on:
+      - frontend
+      - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "-k", "https://localhost:4433/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build:
+      context: frontend
+      args:
+        HTTP_PROXY: ${HTTP_PROXY:-}
+        HTTPS_PROXY: ${HTTPS_PROXY:-}
+    image: frontend:matcha
+    container_name: matcha_frontend
+    restart: on-failure
+    env_file:
+      - .env
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      front:
+    depends_on:
+      - backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5173"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  backend:
+    build:
+      context: backend
+      args:
+        HTTP_PROXY: ${HTTP_PROXY:-}
+        HTTPS_PROXY: ${HTTPS_PROXY:-}
+    image: backend:matcha
+    container_name: matcha_backend
+    restart: on-failure
+    env_file:
+      - .env
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      back:
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+networks:
+  front:
+    driver: bridge
+  back:
+    driver: bridge
+
+secrets:
+  ssl_crt:
+    file: ./secrets/matcha.crt
+  ssl_key:
+    file: ./secrets/matcha.key
+
