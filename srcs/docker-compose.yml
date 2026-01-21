@@ -77,6 +77,28 @@ services:
   database:
     build:
       context: database
+      args:
+        HTTP_PROXY: ${HTTP_PROXY:-}
+        HTTPS_PROXY: ${HTTPS_PROXY:-}
+    image: database:matcha
+    container_name: matcha_database
+    restart: on-failure
+    env_file:
+      - .env
+    volumes:
+      - data:/var/lib/postgresql/data
+    ports:
+      "5432:5432"
+    networks:
+      back:
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  data:
 
 networks:
   front:
