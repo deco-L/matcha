@@ -1,11 +1,7 @@
-FROM node:24
+FROM postgres:16
 
-WORKDIR /usr/src/app
-
-COPY package*.json .
-
-RUN --mount=type=cache,target=/root/.npm \
-  npm install
+ARG HTTP_PROXY
+ARG HTTPS_PROXY
 
 COPY /docker-entrypoint.sh /docker-entrypoint.sh
 
