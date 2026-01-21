@@ -6,7 +6,7 @@
 !/srcs/frontend/
 !/srcs/backend/
 !/srcs/nginx/
-!/srcs/databse/
+!/srcs/database/
 
 # allow source directories
 !/srcs/frontend/src/
