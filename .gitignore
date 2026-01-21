@@ -6,6 +6,7 @@
 !/srcs/frontend/
 !/srcs/backend/
 !/srcs/nginx/
+!/srcs/databse/
 
 # allow source directories
 !/srcs/frontend/src/
@@ -14,6 +15,7 @@
 !/srcs/backend/src/
 !/srcs/backend/src/**/
 !/srcs/nginx/config/
+!/srcs/nginx/conifg/**/
 
 # allow files inside allowed dirs
 !/srcs/**/**/*.ts

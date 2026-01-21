@@ -74,6 +74,10 @@ services:
       timeout: 5s
       retries: 3
 
+  database:
+    build:
+      context: database
+
 networks:
   front:
     driver: bridge

@@ -1,4 +1,4 @@
-FROM nginx:stable
+FROM nginx:1.28
 
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
