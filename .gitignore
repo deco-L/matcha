@@ -18,15 +18,15 @@
 !/srcs/nginx/conifg/**/
 
 # allow files inside allowed dirs
-!/srcs/**/**/*.ts
-!/srcs/**/**/*.tsx
-!/srcs/**/**/*.js
-!/srcs/**/**/*.json
-!/srcs/**/**/*.html
-!/srcs/**/**/*.css
-!/srcs/**/**/*.svg
-!/srcs/**/**/*.conf
-!/srcs/**/**/*.sh
+!/srcs/**/*.ts
+!/srcs/**/*.tsx
+!/srcs/**/*.js
+!/srcs/**/*.json
+!/srcs/**/*.html
+!/srcs/**/*.css
+!/srcs/**/*.svg
+!/srcs/**/*.conf
+!/srcs/**/*.sh
 
 # allow infra files
 !**/Dockerfile

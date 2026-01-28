@@ -75,20 +75,19 @@ services:
       retries: 3
 
   database:
-    build:
-      context: database
-      args:
-        HTTP_PROXY: ${HTTP_PROXY:-}
-        HTTPS_PROXY: ${HTTPS_PROXY:-}
-    image: database:matcha
+    image: postgres:16
     container_name: matcha_database
     restart: on-failure
     env_file:
       - .env
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_user_password
+    secrets:
+      - postgres_user_password
     volumes:
       - data:/var/lib/postgresql/data
     ports:
-      "5432:5432"
+      - "5432:5432"
     networks:
       back:
     healthcheck:
@@ -111,4 +110,6 @@ secrets:
     file: ./secrets/matcha.crt
   ssl_key:
     file: ./secrets/matcha.key
+  postgres_user_password:
+    file: ./secrets/postgres_user_password.txt
 
