@@ -63,6 +63,10 @@ services:
     restart: on-failure
     env_file:
       - .env
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_user_password
+    secrets:
+      - postgres_user_password
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
@@ -82,12 +86,11 @@ services:
       - .env
     environment:
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_user_password
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256 --auth-local=scram-sha-256
     secrets:
       - postgres_user_password
     volumes:
       - data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
     networks:
       back:
     healthcheck:
