@@ -1,26 +1,24 @@
-import { pool } from "../../db/pool";
+import { prisma } from "../../lib/prisma.ts";
 
 export async function findOrCreateGoogleUser(
   googleId: string,
   email: string,
-  name: string
+  name?: string
 ) {
-  const existing = await pool.query(
-    "SELECT * FROM User WHERE google_id = $1",
-    [googleId]
-  );
+  let user = await prisma.user.findUnique({
+    where: { googleId },
+  });
 
-  if (existing.rows.length > 0) {
-    return existing.rows[0];
-  }
+  if (user) return user;
 
-  const inserted = await pool.query(
-    `INSERT INTO User (google_id, email, name, provider)
-     VALUES ($1, $2, $3, 'google')
-     RETURNING *`,
-    [googleId, email, name]
-  );
+  user = await prisma.user.create({
+    data: {
+      googleId,
+      email,
+      name,
+      provider: "google",
+    },
+  });
 
-  return inserted.rows[0];
+  return user;
 }
-

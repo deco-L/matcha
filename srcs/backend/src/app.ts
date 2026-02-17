@@ -1,7 +1,7 @@
 import express from "express";
 import { Request, Response } from "express";
 import cookieParser from "cookie-parser";
-import authRoutes from "./modules/auth/auth.routes";
+import authRoutes from "./modules/auth/auth.routes.ts";
 import { query } from "./database";
 import { env } from "./config/env";
 

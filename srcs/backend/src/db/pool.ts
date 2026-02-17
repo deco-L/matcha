@@ -1,5 +1,5 @@
 import { Pool } from "pg";
-import { env } from "../config/env"
+import { env } from "../config/env.ts"
 import fs from "fs";
 
 const password = fs.readFileSync(

@@ -1,5 +1,5 @@
-import { googleClient, clientId } from "../../config/oauth";
-import { findOrCreateGoogleUser } from "../user/user.repository";
+import { googleClient } from "../../config/oauth.ts";
+import { findOrCreateGoogleUser } from "../user/user.repository.ts";
 
 export async function handleGoogleCallback(code: string) {
   const { tokens } = await googleClient.getToken(code);
@@ -7,16 +7,15 @@ export async function handleGoogleCallback(code: string) {
 
   const ticket = await googleClient.verifyIdToken({
     idToken: tokens.id_token!,
-    audience: clientId,
+    audience: googleClient._clientId,
   });
 
-  const payload = ticket.getPayload()!;
+  const payload = ticket.getPayload();
+  if (!payload || !payload.sub || !payload.email) {
+    throw new Error("Invalid Google payload");
+  }
 
-  const user = await findOrCreateGoogleUser(
-    payload.sub,
-    payload.email!,
-    payload.name!
-  );
+  const user = await findOrCreateGoogleUser(payload.sub, payload.email, payload.name);
 
   return user;
 }

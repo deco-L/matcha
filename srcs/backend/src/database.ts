@@ -1,6 +1,6 @@
 import { Pool } from "pg";
 import fs from "fs";
-import { env } from "./config/env"
+import { env } from "./config/env.ts"
 
 const password = fs
   .readFileSync("/run/secrets/postgres_user_password", "utf8").trim();

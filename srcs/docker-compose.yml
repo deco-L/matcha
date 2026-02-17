@@ -41,7 +41,7 @@ services:
       - .env
     volumes:
       - ./frontend:/usr/src/app
-      - /usr/src/app/node_modules
+      - matcha_frontend_node_module:/usr/src/app/node_modules
     networks:
       front:
     depends_on:
@@ -70,9 +70,10 @@ services:
       - postgres_user_password
       - google_client_id
       - google_client_secret
+      - jwt_secret
     volumes:
       - ./backend:/usr/src/app
-      - /usr/src/app/node_modules
+      - matcha_backend_node_module:/usr/src/app/node_modules
     networks:
       back:
     healthcheck:
@@ -104,6 +105,8 @@ services:
 
 volumes:
   data:
+  matcha_frontend_node_module:
+  matcha_backend_node_module:
 
 networks:
   front:
@@ -122,4 +125,5 @@ secrets:
     file: ./secrets/google_client_id
   google_client_secret:
     file: ./secrets/google_client_secret
-
+  jwt_secret:
+    file: ./secrets/jwt_secret

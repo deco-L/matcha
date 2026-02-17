@@ -1,5 +1,7 @@
 generator client {
   provider = "prisma-client-js"
+  output     = "../src/generated/prisma"
+  engineType    = "library"
 }
 
 datasource db {
@@ -11,5 +13,7 @@ model User {
   email     String   @unique
   name      String?
   provider  String
+  googleId  String?  @unique
   createdAt DateTime @default(now())
 }
+

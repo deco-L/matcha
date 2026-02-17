@@ -1,3 +1,8 @@
+import { readSecret } from "../lib/secrets.ts"
+
+const dbPassword = readSecret("/run/secrets/postgres_user_password")
+const jwtSecret = readSecret("/run/secrets/jwt_secret")
+
 function required(key: string): string {
   const value = process.env[key];
   if (!value) {
@@ -14,6 +19,7 @@ export const env = {
     host: required("POSTGRES_HOST"),
     db: required("POSTGRES_DB"),
     port: Number(required("POSTGRES_PORT")),
+    url: `postgresql://${required("POSTGRES_USER")}:${dbPassword}@database:${required("POSTGRES_PORT")}/${required("POSTGRES_DB")}?schema=public`,
   },
 
   google: {
@@ -30,7 +36,7 @@ export const env = {
   },
 
   jwt: {
-    secret: process.env.JWT_SECRET!,
+    secret: jwtSecret,
   },
 };
 

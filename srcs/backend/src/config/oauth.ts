@@ -1,6 +1,6 @@
 import { OAuth2Client } from "google-auth-library";
-import { readSecret } from "../lib/secrets";
-import { env } from "./env";
+import { readSecret } from "../lib/secrets.ts";
+import { env } from "./env.ts";
 
 const clientId = readSecret("/run/secrets/google_client_id");
 const clientSecret = readSecret("/run/secrets/google_client_secret");
