@@ -41,7 +41,7 @@ services:
       - .env
     volumes:
       - ./frontend:/usr/src/app
-      - /usr/src/app/node_modules
+      - matcha_frontend_node_module:/usr/src/app/node_modules
     networks:
       front:
     depends_on:
@@ -63,9 +63,17 @@ services:
     restart: on-failure
     env_file:
       - .env
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_user_password
+    working_dir: /usr/src/app
+    secrets:
+      - postgres_user_password
+      - google_client_id
+      - google_client_secret
+      - jwt_secret
     volumes:
       - ./backend:/usr/src/app
-      - /usr/src/app/node_modules
+      - matcha_backend_node_module:/usr/src/app/node_modules
     networks:
       back:
     healthcheck:
@@ -73,6 +81,32 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
+
+  database:
+    image: postgres:16
+    container_name: matcha_database
+    restart: on-failure
+    env_file:
+      - .env
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_user_password
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256 --auth-local=scram-sha-256
+    secrets:
+      - postgres_user_password
+    volumes:
+      - data:/var/lib/postgresql/data
+    networks:
+      back:
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  data:
+  matcha_frontend_node_module:
+  matcha_backend_node_module:
 
 networks:
   front:
@@ -85,4 +119,11 @@ secrets:
     file: ./secrets/matcha.crt
   ssl_key:
     file: ./secrets/matcha.key
-
+  postgres_user_password:
+    file: ./secrets/postgres_user_password.txt
+  google_client_id:
+    file: ./secrets/google_client_id
+  google_client_secret:
+    file: ./secrets/google_client_secret
+  jwt_secret:
+    file: ./secrets/jwt_secret

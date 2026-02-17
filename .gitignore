@@ -1,31 +1,50 @@
 # ignore all files
 *
 
-# unignore directories
-!/srcs
-!/srcs/frontend
-!/srcs/backend
-!/srcs/nginx
-!/srcs/frontend/src
-!/srcs/backend/src
-!/srcs/nginx/config
-!/srcs/frontend/public
-!/**/assets
+# allow base directories
+!/srcs/
+!/srcs/frontend/
+!/srcs/backend/
+!/srcs/nginx/
 
-# unignore files
-!**/.gitignore
-!**/.dockerignore
+# allow source directories
+!/srcs/frontend/src/
+!/srcs/frontend/public/
+!/srcs/frontend/src/**/
+!/srcs/backend/src/
+!/srcs/backend/src/**/
+!/srcs/backend/scripts/
+!/srcs/backend/scripts/**/
+!/srcs/backend/prisma/
+!/srcs/backend/prisma/**/
+!/srcs/nginx/config/
+!/srcs/nginx/conifg/**/
+
+# allow files inside allowed dirs
+!/srcs/**/*.ts
+!/srcs/**/*.tsx
+!/srcs/**/*.js
+!/srcs/**/*.json
+!/srcs/**/*.toml
+!/srcs/**/*.prisma
+!/srcs/**/*.html
+!/srcs/**/*.css
+!/srcs/**/*.svg
+!/srcs/**/*.sql
+!/srcs/**/*.conf
+!/srcs/**/*.sh
+
+# allow infra files
 !**/Dockerfile
 !**/docker-compose.yml
 !**/Makefile
 !**/README.md
-!**/*.json
-!**/*.conf
-!**/*.sh
-!**/*.js
-!**/*.ts
-!**/*.tsx
-!**/*.html
-!**/*.css
-!**/*.svg
+!**/.gitignore
+!**/.dockerignore
+
+# explicitly ignore secrets
+**/secrets/
+**/*.env
+**/*.key
+**/*.crt
 
