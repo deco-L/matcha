@@ -6,7 +6,6 @@
 !/srcs/frontend/
 !/srcs/backend/
 !/srcs/nginx/
-!/srcs/database/
 
 # allow source directories
 !/srcs/frontend/src/
@@ -14,6 +13,10 @@
 !/srcs/frontend/src/**/
 !/srcs/backend/src/
 !/srcs/backend/src/**/
+!/srcs/backend/scripts/
+!/srcs/backend/scripts/**/
+!/srcs/backend/prisma/
+!/srcs/backend/prisma/**/
 !/srcs/nginx/config/
 !/srcs/nginx/conifg/**/
 
@@ -22,9 +25,12 @@
 !/srcs/**/*.tsx
 !/srcs/**/*.js
 !/srcs/**/*.json
+!/srcs/**/*.toml
+!/srcs/**/*.prisma
 !/srcs/**/*.html
 !/srcs/**/*.css
 !/srcs/**/*.svg
+!/srcs/**/*.sql
 !/srcs/**/*.conf
 !/srcs/**/*.sh
 

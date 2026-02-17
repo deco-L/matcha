@@ -1,19 +1,27 @@
 {
   "name": "matcha-backend",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
-    "start": "node src/index.ts"
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/app.ts",
+    "start": "node src/app.ts",
+    "migrate:dev": "sh ./scripts/migrate-dev.sh"
   },
   "dependencies": {
+    "@prisma/client": "^7.4.0",
+    "cookie-parser": "^1.4.7",
     "express": "^4.19.2",
+    "google-auth-library": "^10.5.0",
+    "jsonwebtoken": "^9.0.3",
     "pg": "^8.17.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/pg": "^8.16.0",
-    "nodemon": "^3.0.0"
+    "nodemon": "^3.0.0",
+    "prisma": "^7.4.0"
   }
 }
